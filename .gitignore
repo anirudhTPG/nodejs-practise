@@ -27,6 +27,7 @@ njmusicstore/
 ngs/
 TypeScript/
 music_store/API/node_modules/
+music_store/API/build/
 cinema-microservice/
 microservices-workshop/
 advanced-node-js/
