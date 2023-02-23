@@ -52,8 +52,9 @@ const updateCart = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const deleteCart = (req: Request, res: Response, next: NextFunction) => {
-    const cartId = req.params.cartId;
-    return Cart.findByIdAndDelete(cartId)
+    const cartId = req.params.id;
+    //var item = Cart.find({ _id: req.params.id });
+    return Cart.findByIdAndDelete(req.params.id)
         .then((cart) => (cart ? res.status(201).json({ cart, message: 'Track Deleted' }) : res.status(404).json({ message: 'cart not found' })))
         .catch((error) => res.status(500).json({ error }));
 };

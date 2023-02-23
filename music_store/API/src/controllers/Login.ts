@@ -23,7 +23,7 @@ const login = (req: Request, res: Response) =>{
                 const jwtToken = generateToken(usr.username, apiAccessTypes);
                 Logging.info(`JWT token: ${jwtToken}`);
 
-                res.status(201).json({ username: `${usr.username}`,role: `${usr.role}`,token: `${jwtToken}` })
+                res.status(200).json({ username: `${usr.username}`,role: `${usr.role}`,token: `${jwtToken}` })
             }
         })
         .catch((error) => res.status(500).json({ error }));
