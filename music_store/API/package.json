@@ -9,6 +9,7 @@
         "mongoose": "^6.9.1",
         "nodemon": "^2.0.20",
         "prettier": "^2.8.4",
+        "redis": "^4.6.4",
         "ts-node": "^10.9.1"
     },
     "name": "music_store",
@@ -16,7 +17,7 @@
     "main": "src/server.ts",
     "scripts": {
         "build": "rm -rf build/ && tsc",
-        "start": "rm -rf build/ && tsc && node build/server.js"
+        "start": "node build/server.js"
     },
     "keywords": [],
     "author": "",

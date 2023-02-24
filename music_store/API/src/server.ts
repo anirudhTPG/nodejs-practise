@@ -6,6 +6,7 @@ import Logging from './library/Logging';
 import trackRoutes from './routes/Tracks';
 import cartRoute from './routes/Cart';
 import loginRoute from './routes/Login';
+import redisRoute from './routes/Redis';
 
 const router = express();
 
@@ -63,7 +64,8 @@ const StartServer = () => {
     /** Routes */
     router.use('/user', loginRoute);
     router.use('/tracks', trackRoutes);
-    router.use('/cart', cartRoute);    
+    router.use('/cart', cartRoute);
+    router.use('/redis', redisRoute);
 
     /** Healthcheck */
     router.get('/ping', (req, res, next) => res.status(200).json({ hello: 'world' }));
