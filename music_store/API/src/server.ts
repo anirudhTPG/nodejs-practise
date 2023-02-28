@@ -7,8 +7,12 @@ import trackRoutes from './routes/Tracks';
 import cartRoute from './routes/Cart';
 import loginRoute from './routes/Login';
 import redisRoute from './routes/Redis';
+import s3Route from "./routes/S3Routes"
+import cors from "cors";
 
 const router = express();
+
+router.use(cors()); // Enable all cors requests for all routes
 
 /** connect mongo */
 mongoose.set('strictQuery', true);
@@ -45,7 +49,7 @@ const StartServer = () => {
         next();
     });
 
-    router.use(express.urlencoded({ extended: true }));
+    router.use(express.urlencoded({ limit: '50000mb', extended: false }));
     router.use(express.json());
 
     /** Rules of our API */
@@ -66,6 +70,7 @@ const StartServer = () => {
     router.use('/tracks', trackRoutes);
     router.use('/cart', cartRoute);
     router.use('/redis', redisRoute);
+    router.use('/s3', s3Route);
 
     /** Healthcheck */
     router.get('/ping', (req, res, next) => res.status(200).json({ hello: 'world' }));
