@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import Logging from '../library/Logging';
 import Tracks from '../models/Tracks';
+import sqsService from "../AWS/SQSServices/sqs_sendmessage";
+import receiveFromQueue from  "../AWS/SQSServices/sqs_receivemessage";
 
 const createTrack = (req: Request, res: Response, next: NextFunction) => {
     const { albumGenre, albumName, albumYear, artistName, trackName, trackPrice } = req.body;
@@ -15,13 +17,23 @@ const createTrack = (req: Request, res: Response, next: NextFunction) => {
         trackPrice
     });
 
+    //publish queue
+    var response = sqsService.publishToQueue(track);
+    res.status(201).json({ track });
+
+    var receivedMessages =receiveFromQueue.receiveFromQueue();
+    // const trackToAdd = receivedMessages.Messages[0]["Body"] as Tracks
+   
+    /**  //This saves the data directly to db.
+     *  //commented code to add queue system
+    
     return track
         .save()
         .then((track) => res.status(201).json({ track }))
         .catch((error) => {
             Logging.error(error);
             res.status(500).json({ error });
-        });
+        });*/
 };
 
 const readTrack = (req: Request, res: Response, next: NextFunction) => {
@@ -61,7 +73,7 @@ const updateTrack = (req: Request, res: Response, next: NextFunction) => {
 const deleteTrack = (req: Request, res: Response, next: NextFunction) => {
     const trackId = req.params.trackId;
     return Tracks.findByIdAndDelete(trackId)
-        .then((track) => (track ? res.status(201).json({ track, message: 'Track Deleted' }) : res.status(404).json({ message: 'track not found' })))
+        .then((track) => (track ? res.status(200).json({ track, message: 'Track Deleted' }) : res.status(404).json({ message: 'track not found' })))
         .catch((error) => res.status(500).json({ error }));
 };
 

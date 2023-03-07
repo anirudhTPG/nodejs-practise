@@ -12,6 +12,9 @@ const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 
  const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
  const BUCKET_NAME = process.env.BUCKET_NAME;
  const AWS_LOCATION = process.env.AWS_LOCATION;
+ const AWS_DEVELOPER_ACCESS_KEY_ID = process.env.AWS_DEVELOPER_ACCESS_KEY_ID;
+ const AWS_DEVELOPER_SECRET_ACCESS_KEY = process.env.AWS_DEVELOPER_SECRET_ACCESS_KEY;
+ 
 
 export const config = {
     mongo: {
@@ -24,6 +27,11 @@ export const config = {
         access_key: AWS_ACCESS_KEY_ID,
         secret_key: AWS_SECRET_ACCESS_KEY,
         bucket_name: BUCKET_NAME ? BUCKET_NAME : "myfolderfordemo",
+        location: AWS_LOCATION
+    },
+    aws_developer: {
+        access_key: AWS_DEVELOPER_ACCESS_KEY_ID,
+        secret_key: AWS_DEVELOPER_SECRET_ACCESS_KEY,
         location: AWS_LOCATION
     }
 };

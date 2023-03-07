@@ -36,3 +36,5 @@ const uploadToS3Bucket = async (req: Request, res: any) => {
 }
 
 export default {uploadToS3Bucket}
+
+//https://messaismael.com/2022-03-29-how-to-Implement-an-uploading-service-to-s3-using-nodejs-and-typescript/
